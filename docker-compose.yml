@@ -1,0 +1,12 @@
+dddopenstack:
+  build: .
+  command: --user-data-dir=/data --no-sandbox file:///slides/index.html
+  environment:
+    DISPLAY: unix:0.0
+  volumes:
+    - /tmp/.X11-unix:/tmp/.X11-unix
+    - .:/slides
+  net: host
+  privileged: true
+  stdin_open: true
+  tty: true
