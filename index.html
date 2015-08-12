@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Docker Docker Docker Openstack</title>
+		<title>Just Enough Openstack for Docker</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="Just Enough Openstack for Docker">
+		<meta name="author" content="Paul Czarkowski">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -41,65 +41,277 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background="images/title_page.png">
-					<h2>Docker Docker Docker Openstack</h2>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<img src="images/private_cloud.png">
+					<h2>Just Enough Openstack for Docker</h2>
 					<aside class="notes">
-					* you're probaly here at this summit because sometime in the last 6-12 months somebody asked you to build a private cloud.
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<img src="images/dockahdockahdockah.gif" height="400">
+					<p>OpenStack is a large collection of complicated projects that join together to form a hard to deploy and harder to run distributed system.  This talk will show you how you can harness the concepts of bimodal IT to increase agility in your IT organization by utilizing a minimal Openstack install and various Docker based tools to build a platform that will increase developer productivity.</p>
 					<aside class="notes">
-					* You're in this room because that same person then read something about docker in an inflight magazine and is now insisting that everything be converted to docker.
+					the CFP for Seattle Openstack day came out shortly after the openstack summit in vancouver.  I guess I was still full of buzzwords and bullshit because I
+					wrote this...
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li>Docker on Openstack
-				  <li>Openstack on Docker
-				  <li>Inside a Docker
-				  <li>Outside a Docker
-				  <li>Recommendations
+					<p>Openstack is a large collection of complicated projects that join together to form a <b>hard to deploy</b> and <b>harder to run</b> <b>distributed system</b>.  This talk will show you how you can harness the concepts of <b>bimodal IT</b> to <b>increase agility in your IT organization</b> by utilizing a <b>minimal Openstack install</b> and various <b>Docker based tools</b> to <i>build a platform</i> that will <b>increase developer productivity.</b></p>
 					<aside class="notes">
-					* I'm here in this room standing in front of you to help you figure out how to do this docker thing on openstack.<br>
-					* We're going to talk briefy about what is docker<br>
-					* running docker on openstack, and/or openstack on docker.<br>
-					* some tools and ideas to help operationalize docker both inside and outside your containers<br>
-					* Finally I'll share with my opinions on how to get org to a good place where you can docker.
+					I was surprised and a little anxious when Sririum notified me that my CFP was expected and I'd have to actually produce something to cover this wall of buzzwords.
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h1>Who am I?</h1>
-				<img src="images/princess_table-flip.gif">
-				<br><p>Paul Czarkowski / @pczarkowski
+					<h4>Just Enough Openstack for Docker</h4>
+					<ul>
+					  <li>Hard to deploy
+					  <li>Harder to run
+					  <li>distributed system
+					  <li>bimodal IT
+					  <li>increase agility in your IT organization
+					  <li>Minimal Openstack install
+					  <li>Docker based tools
+					  <li>build a platform
+					  <li>increase developer productivity
+					</ul>
 					<aside class="notes">
-					* think of myself as a Sysadmin, get called rude names like devop or OS engineer<br>
-					* work at bluebox on private cloud as a service product<br>
-					* Early adopter of docker - ran it in prod for at 0.3 for personal app<br>
-					* Presented at the first dockercon<br>
-					* contributor to novadocker<br>
-					* created dockenstack project<br>
-					* created factorish project<br>
+					Thankfully It was easily distilled into just the buzzwords.
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li><b>WTF is Docker ?</b>
-				  <li>Docker on Openstack
-				  <li>Openstack on Docker
-				  <li>Inside a Docker
-				  <li>Outside a Docker
-				  <li>Recommendations
+					<h4>Just Enough Openstack for Docker</h4>
+					<ul>
+					  <li>Bimodal IT
+					  <li>Just Enough Openstack [for Docker]
+					  <li>Docker, Docker, Docker
+					</ul>
+					<aside class="notes">
+					which boiled down to these three main talking points which are three things I can actually talk about with hopefully some level of coherence.
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Let's get to know eachother</h3>
+					<img src="images/hello_paul.png" width="65%" height="65%">
+					<aside class="notes">
+					* But first,  let's take a moment to get to know eachother.<br>
+					* my name is Paul Czarkowski, Infrastructure Engineer at Bluebox, recently acquired by ibm<br>
+					* I worked in large enterprises for 10 years, left to work at startup, got bought by the original tech enterprise.<br>
+					* I have been working with Openstack since Folsom and Docker since 0.3. <br>
+					* I have spoken at both Openstack Summit and Dockercon.
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Let's get to know eachother</h3>
+					<img src="images/hello_audience.gif" width="65%" height="65%">
+					<aside class="notes">
+					* Now we're going to go around the room one by one and say a few words about yourselves.<br>
+					* j/k but that would certainly take the pressure off me trying to fill 40 mins of content here<br>
+					* show of hands:  - work at enterprise - running openstack,  - running docker<br>
+					* take a look around the room ... these are the people you should network with today.
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Bimodal IT</h2>
+					<img src="images/bimodalIT_cat_vs_dog.jpg" width="65%" height="65%">
+					<aside class="notes">
+					* I want to start off by talking about bimodal IT.<br>
+					* believe it to be the most important thing I will talk about today.<br>
+					* lack of bimodal IT is in my exp the most common failing at enterprises.<br>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Traditional IT</h3>
+					<img src="images/mode1.jpg">
+					<h3>Pets</h3>
+					<aside class="notes">
+					* mode 1 is your legacy IT business.<br>
+					* focus on providing reliability via business process.<br>
+					* Waterfall, ITIL, Change Comittees, 12am maintenance windows.<br>
+					* Exchange, Physical, Windows 2003, RHEL + Satellite.<br>
+					* Ticket driven IT infrastructure.<br>
+					* Focus on improving reliability of existing services.  VMWare!
+					</aside>
+				</section>
+
+				<section>
+					<h3>Forward Thinking</h3>
+					<img src="images/mode2.jpg">
+					<h3>Cattle</h3>
+					<aside class="notes">
+					* mode 2 is your forward thinking IT business.<br>
+					* Completely different org to that of Mode 1<br>
+					* focus on reducing bottlenecks and delivering business value - Goal, Phoenix<br>
+					* Scrum/Kanban, Devops, Infra as code, CI/CD, short feedback loops<br>
+					* Google Apps, Slack, Cloud ( AWS, Azure, Openstack ), Containers, *AAS<br>
+					* look at shadow it in your org, build systems that your ppl will go to first.<br>
+					* self service IT infrastructure<br>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Forward Thinking</h3>
+					<img src="images/mode2.jpg">
+					<h3>Cattle</h3>
+					<aside class="notes">
+					* without this second mode, your business will suffer greatly as your competitors go down this path<br>
+					* at prev org, we went through a 3 year "cloud" RFC/RFP process.<br>
+					* primary question was 'how can we do everything with X' which caused us to chase our tail rather than look forward<br>
+					* result was 'VMWare', 3 years later they have vmware which takes just as long to provision systems as physical.<br>
+					* meanwhile we had a golden metric of 'how many systems did you virtualize' - because that's the same as cloud right?<br>
+					* led to crazyness like P2V migrations, 1:1 virtualization, a DB and both its replicas on same Hypervisor, etc, etc<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<img src="images/thegoal.jpg" width='200' height='300'><img src="images/phoenixproj.png">
+					<aside class="notes">
+					* not really increasing developer productivity,  we're reducing friction.<br>
+					* 2nd mode of IT should borrow heavily from Lean,  Toyota<br>
+					* TOC is /very/ important here, read PP and the goal<br>
+					* hands up if you have read either of these<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<img src="images/3ways.png" height="75%" width="75%">
+					<br><small><a href="http://blog.docker.com/2015/05/docker-three-ways-devops/">Docker and the Three Ways of DevOps</a> by <a href="https://twitter.com/botchagalupe">John Willis</a></small>
+					<aside class="notes">
+					* three ways of devops<br>
+					* done right, 2nd mode will drag 1st mode through these transformations<br>
+					* 1st mode becomes cattle,  2nd mode becomes insect swarm.<br>
+					* eventually the two modes will be almost indistinguishable from a process/tooling perspective<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<br><br><image src="images/cage_magic.jpg">
+					<aside class="notes">
+					* My summary here:  don't worry about legacy when you're making decisions for the future.<br>
+					* Build seperate team for build/develop.  disturbingly large no of ppl will be happy to stay in mode1<br>
+					* Our focus here at the openstack day should be on the 2nd mode of IT.<br>
+					* if you're here try to improve your legacy infrastructure ... well VMWorld is coming up on August 30
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Openstack is...</h2>
+					<ul>
+					  <li>Hard to Install
+					  <li>Harder to Operate
+					</ul>
+					<aside class="notes">
+					* with that out of the way,  let's talk about how terrible openstack is<br>
+					* which OS, Which distro, packages vs source ?<br>
+					* Hell even installing openstack cli clients can be hard<br>
+				</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Which Operating System ?</h3>
+					<ul>
+					  <li>Redhat -  RHEL, CentOS
+					  <li>Debian -  Debian, <b>Ubuntu</b>
+					</ul>
+					<aside class="notes">
+					* Before you can even start to install you need to choose an OS.<br>
+					* Ubuntu is predominent OS in CI, Newer kernels etc.<br>
+					* Support?   They'll take your money if you really want to pay them...<br>
+					* when was last time you used and got value out of RHEL support ?<br>
+				</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Which Openstack distro ?</h3>
+					<ul>
+					  <li>OS native - <b>Ubuntu</b>, RHEL
+					  <li>from <b>Source</b> ...  git://
+					  <li>Helion, Mirantis, ...
+					  <li><i>Roll your own packages</i>
+					</ul>
+					<aside class="notes">
+					* You've chosen an OS ...  now choose an openstack "distro"<br>
+					* Really two choices here for somebody new to openstack.  <br>
+					* 1) use the distro packages<br>
+					* 2) install from source ( its python, not complicated)<br>
+				</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+				<img src="images/openstack-arch-kilo-logical-v1.png">
+				<br><small><a href="http://docs.openstack.org/admin-guide-cloud/content/logical-architecture.html">http://docs.openstack.org/admin-guide-cloud/content/logical-architecture.html</a></small>
+					<aside class="notes">
+					* Each "shape" in this diagram represents an openstack component and 100+ configurable options.  1000s!<br>
+					* Openstack has no opinions, expects you to have them and provide them.<br>
+					* Database - Mysql, <b>Percona+Galera</b>, Postgres,  ORACLE?!?!?!<br>
+					* Queuing - <b>RabbitMQ</b>, ZeroMQ, QPID<br>
+					* Network - <b>ml2</b>, OVS, <b>linux bridge</b>, VXLAN, VLAN, GRE, vendor<br>
+					* Compute - <b>KVM</b>, Xen, HyperV, VMWare, Docker, LXC, etc<br>
+					* Cinder - LVM, Gluster, NFS, NetApp, EMC<br>
+				</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+				<img src="images/openstack-arch-kilo-minimal.png">
+					<aside class="notes">
+					* If you're new to openstack/cloud lets not complicate things.  this is all you really need.<br>
+					* MySQL and RabbitMQ ( don't even worry about replication / HA that can come later )<br>
+					* Horizon, Keystone, Nova, Neutron, and Glance.<br>
+					* Start with a single externally routed VLAN for your neutron network<br>
+					* tricky stuff like SDN, Floating IPs, etc, later<br>
+					* If you have a NetApp or decent NAS/SAN maybe add cinder after a few months<br>
+				</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Openstack Big Tent<br>Configuration Management</h3>
+					<ul>
+					<li><a href="https://github.com/openstack/openstack-chef-repo">https://github.com/openstack/openstack-chef-repo</a>
+					<li><a href="https://github.com/stackforge/puppet-openstack">https://github.com/stackforge/puppet-openstack</a>
+					<li><a href="https://github.com/stackforge/os-ansible-deployment">https://github.com/stackforge/os-ansible-deployment</a>
+					<li><a href="https://github.com/stackforge/fuel-main">https://github.com/stackforge/fuel-main</a>
+					</ul>
+					<aside class="notes">
+					* ofc, if want sane repeatable openstack, you'll use config management<br>
+					* unless you roll your own, your choice here will probably dictate your OS choices.<br>
+					* spoiler most are Ubuntu + System Packages<br>
+					* are as unopinionated as openstack, therefore still need to make a lot of upfront decisions.
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Ursula</h2>
+					<ul>
+					  <li><a href="http://github.com/blueboxgroup/ursula">http://github.com/blueboxgroup/ursula</a>
+					  <li>Curated and opinionated
+					  <li>Used to manage a <i>lot</i> of openstack clouds by a small team
+					  <li>Feature flags to enable/disable optional items
+					  <li>Kick the tires with <b>Vagrant</b>.
+					  <li>~ 1200 ansible tasks to do a <i>simple</i> openstack install
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Shameless Plug</h2>
+					<p>&lt;Bluebox Logo goes here&gt;
+					<aside class="notes">
+					<ul>
+					  <li>For ~ $5k/mo Bluebox will host and manage your Private Cloud for you.<br>
+					  <li>Avoid all the BS of running openstack, and spend your time learning how to consume.<br>
+					</ul>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<img src="images/dockahdockahdockah.gif" height="85%" width="85%">
+					<aside class="notes">
+					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
@@ -108,8 +320,8 @@
 					<aside class="notes">
     Process Isolation, chroot on steroids<br>
     Uses linux kernel tooling ( cgroups, namespaces, etc)<br>
-    Shareable Artifacts - Images / Docker Hub<br>
-    Write Once, Run Anywhere.<br>
+    Shareable Immutable Artifacts - Images / Docker Hub<br>
+    As much or as little of an OS in the image as you want.<br>
 					</aside>
 				</section>
 
@@ -119,399 +331,39 @@
 					<aside class="notes">
 						* Docker = Containers ! Virt.  Can act like a VM<br>
 						* security/isolation half way between chroot and VM<br>
-						* Any OS capable of running docker can run your dockerized app<br>
+						* Any OS capable of running docker can run your dockerized app... rhel vs deb<br>
 						* layered filesystem means that containers can share common data.<br>
 						* &lt; 1 sec startup time, have seen &lt; 10mb to &gt; gigs<br>
 					</aside>
 				</section>
 
-				<section data-background="images/slide_bg.png">
-				  <h3>Docker Ecosystem - Docker</h3>
-				  <ul>
-						<li>boot2docker
-				    <li>Docker Registry / Distribution
-						<li>Docker Compose
-				    <li>Docker Machine
-				    <li>Docker Swarm
-						<li>Libnetwork / Socketplane
-					<aside class="notes">
-					  * boot2docker is docker on lightweight vbox for osx / windows, i prefer vagrant<br>
-					  * registry is artifact repo for your docker images, push/pull back by swift<br>
-					  * compose starts up docker containers based on .yml.  great for dev<br>
-					  * Machine is a way to install and access docker on remote machines.  good 4 dev on openstack.<br>
-					  * swarm is container scheduling across many docker servers<br>
-					  * libnetwork is up and coming network stack for docker, will use openvswitch to bring sdn to docker
-					</aside>
-				</section>
+				<section>
+				  <h2>Dockerfile</h2>
+					<pre class="stretch"><code data-trim>
+# Base docker image
+FROM paulczar/chrome
 
-				<section data-background="images/slide_bg.png">
-				  <h3>Docker Ecosystem - Community</h3>
-				  <ul>
-				    <li>CoreOS / Atomic / Ubuntu Core
-				    <li>Kubernetes
-				    <li>Mesos
-						<li>etcd/fleet
-						<li>Drone
-						<li>Deis, Flynn, Rancher
-					<aside class="notes">
-					* coreos etc are lightweight OS designed to run containers.<br>
-					* Kubernetes is container management from google<br>
-					* Mesos is a multi-machine process scheduler, supports docker + more<br>
-					* etcd and fleet are used together to schedule containers across coreOS nodes<br>
-					* drone is a CI / testing tool based on docker ... think travisci
-					* deis, flynn, rancher are PaaS like systems for running applications in containers.
-					</aside>
-				</section>
+RUN apt-get install -y pepperflashplugin-nonfree \
+    && rm -rf /var/lib/apt/lists/*
 
-				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li><b>Docker on Openstack</b>
-				  <li>Openstack on Docker
-				  <li>Inside a Docker
-				  <li>Outside a Docker
-				  <li>Recommendations
-				</section>
+COPY local.conf /etc/fonts/local.conf
 
-				<section data-background="images/slide_bg.png">
-				<h2>Docker on Openstack</h2>
-				<h3>Novadocker</h3>
-				<ul>
-				  <li>May 2013 - Initial Implementation by Sam Alba
-					<li>Sept 2013 - Merged into Nova
-					<li>Oct 2013 - Havana Released w/ Docker
-					<li>March 2014 - Nova Removes Docker Driver (moved to own repo)
-					<li>Ongoing - Active community improving Nova Docker driver.
-					<aside class="notes">
-					* I know several companies that are running it in production today.<br>
-					* novadocker has had an interesting history, written by Sam Alba.<br>
-					* it was fairly quickly ( probably a bit too early ) merged into nova and released with Havana<br>
-					* was removed from icehouse for 'quality' reasons, of 1/2 dozen slated, only one actually.<br>
-					* stalled for a bit but has regained some momentum and is very functional.<br>
-					</aside>
-				</section>
 
-				<section data-background="images/slide_bg.png">
-				<h2>Docker on Openstack</h2>
-				<h3>Novadocker</h3>
-				<ul>
-						<li>Novadocker Container ~= VM
-						<li>Get all benefits of nova, with reduction in docker features
-						<li>Super fast start time
-						<li>Store images in glance
-						<li>Neutron for network + security groups
-					<aside class="notes">
-					* we treat docker like a hypervisor, containers like VMs<br>
-					* nova benefits, scheduling, etc, at cost of runtime config of container.  CMD has to be correct.<br>
-					* folks are working on bringing more runtime config stuff in.<br>
-					* keep dockers super fast start time.  longest times are scheduler and image download<br>
-					* images are stored in glance, which means we don't have to run a docker registry<br>
-					* uses neutron, so we get real IP addressing and security groups replace port mapping.<br>
-					</aside>
-				</section>
+COPY . /slides
 
-				<section data-background="images/slide_bg.png">
-				<h2>Docker on Openstack</h2>
-				<h3>Novadocker</h3>
-				<pre><code>
-$ docker pull bacon/app
-$ docker save bacon/app | glance image-create bacon/app
-$ nova boot --image=bacon/app --flavor=2 bacon_app
-				</code></pre>
-   		  <aside class="notes">
-   		  * this is what it looks like to launch a docker container via novadocker.<br>
-   		  * we push the image up to glance and then boot it like a regular instance<br>
-   		  * image must have all env and startup cmd hard coded so it starts correctly<br>
-		  	</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Docker on Openstack</h2>
-				<h3>Heat</h3>
-				  <ul>
-				    <li>Oct 2013 - Initial implementation by Sam Alba
-						<li>Dec 2013 - Merged into Heat.
-						<li>May 2014 - Icehouse Released w/ Docker Heat Plugin.
-					</ul>
-					<aside class="notes">
-					* next we have the Docker resource for heat.<br>
-					* A quick history of the heat driver.  I won't read it out.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Heat</h3>
-				  <ul>
-				    <li>Treat docker containers as heat resources
-				    <li>Manual placement
-				    <li>Heat has to be able to talk to docker API on VM
-				    <li>still somewhat painful install
-					</ul>
-					<aside class="notes">
-					* adds a docker resource type to heat.<br>
-					* I haven't actually used the docker resource from heat, it doesn't solve a problem that I have<br>
-					* be aware: manual placement, heat -> docker API<br>
-					* Props to heat for being forward enough to allow experimental drivers like this in their codebase<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Heat</h3>
-				  <pre><code>
-heat_template_version: 2013-05-23
-description: >
-  Heat template to deploy Docker containers to an existing host
-resources:
-  nginx-01:
-    type: DockerInc::Docker::Container
-    properties:
-      image: nginx
-      docker_endpoint: 'tcp://192.168.1.207:2345'
-				  </code></pre>
-				<p><small>http://blog.scottlowe.org/2014/08/22/a-heat-template-for-docker-containers/</small></p>
-					<aside class="notes">
-					* this is what a heat resource for docker looks,  Scott Lowe has some excellent posts on his blog on using the heat driver.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Heat + Novadocker</h3>
-				  <ul>
-				    <li>docker via regular heat resources
-				    <li>get advantages of both heat and novadocker
-				    <li>Solum uses this.
-					<aside class="notes">
-					* when using novadocker you can use heat to spin up a regular instance resource which will spin a docker instance.<br>
-					* this is more interesting to me that the heat driver as it allows nova to handle the scheduling.<br>
-					* Solum uses this method ... speaking of which...
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Solum</h3>
-				  <ul>
-				    <li>PAAS / ALM mashup
-				    <li>uses heat + novadocker / heat + nova + docker
-				    <li>builds, tests, and runs your code.
-				    <li>think private travis + heroku
-					<aside class="notes">
-					* Solum is somewhere between PAAS and ALM.<br>
-					* it is an OS native way to provide users with app centric cloud<br>
-					* uses docker as app packaging and runtime mechanism<br>
-					* Uses heat as to deploy via novadocker or nova + coreos + docker<bR>
-					* push code to github, github hook kicks off tests, build, then deployment of application via solum.<br>
-					* RAX using in production for internal customers to perform unit testing during code review.<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Deis PaaS</h3>
-				  <ul>
-				  	<li>Most mature of Docker based PaaS
-				    <li>Infrastructure agnostic
-				    <li>Leverages CoreOS + Fleet
-				    <li>Easy to install and operate on Openstack
-				    <li>Heroku/Docker like interfaces
-					<aside class="notes">
-					* I mentioned docker based PAAS ealier...
-					* Calling out DEIS specifically because I have some good experience with it.<br>
-					* Runs easily on OS as well as AWS and other cloud platforms, even bare metal<br>
-					* runs on top of CoreOS utilizing Fleet for sched ( bringing in support for mesos)<br>
-					* very familiar heroku like interface for devs, git push deis master<br>
-					* very familiar docker like interface 'deis push myapp:latest'<br>
-					* also flynn, rancher, lattice
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h2>Docker on Openstack</h2>
-				  <h3>Other</h3>
-				  <ul>
-				    <li>Magnum
-				    <li>Murano
-				    <li>ubuntu vm + curl get.docker.com | sudo bash
-				    <li>CoreOS + Fleet
-				    <li>Mesos
-				    <li>Kubernetes
-					<aside class="notes">
-					* a bunch of other ways of running docker on openstack<br>
-					* both Magnum and Murano have docker stories.  I'm not very familiar with either<br>
-					* I think magnum is something to watch carefully over the next 6-12 mo<br>
-					* should be somewhat interchangeable, don't be afraid to pick one and throw it out.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li>Docker on Openstack
-				  <li><b>Openstack on Docker</b>
-				  <li>Inside a Docker
-				  <li>Outside a Docker
-				  <li>Recommendations
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Openstack on Docker</h2>
-				<h3>Dockenstack</h3>
-				<ul>
-				  <li>Originally written by me
-				  <li>Now maintained by Eric Windisch @ Docker
-				  <li>supports novadocker and libvirt-lxc
-				  <li>First run takes some time.
-				  <li>Subsequent runs take 2-3 minutes
-				  <li>`docker-compose up`
-					<aside class="notes">
-					* a thought experiment to see how easily one could run devstack in a docker container<br>
-					* turned out to be quite interesting from a CI perspective b/c fast rebuild times<br>
-					* Eric took the project over to use it for openstack CI for novadocker<br>
-					* first time you run it will take about as long as a fresh install of devstack<br>
-					* subsequent runs will take just a few mins thx to dockers caching and layering<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Openstack on Docker</h2>
-				<h3>stackforge/kolla</h3>
-				<ul>
-				  <li>A colletion of tooling for running docker in containers
-				  <li>Some require priveleged mode / host network
-				  <li>Running API services in docker ftw
-				  <li>Uses CentOS yum packages
-				</ul>
-					<aside class="notes">
-					* I have looked through the repo, but not actually used<br>
-					* looks interesting, but I'm not sure how practical it is to run /all/ of openstack in docker<br>
-					* perfect for running the various APIs, schedulers, etc<br>
-					* requires some fiddling and use of host networking / privileged mode for neutron or nova-compute.<br>
-					* would rather see builds from git than using upstream packaging ( centos )<br>
-					* the rax ansible playbooks use LXC for running all their openstack components<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Openstack on Docker</h2>
-				<h3>Packaging - Giftwrap</h3>
-				<ul>
-				  <li>tool for building packages for Openstack projects
-				  <li>builds .deb, .rpm, or Docker Image
-				  <li>manifest.yml to specify projects, git repos, version
-				</ul>
-					<aside class="notes">
-					* Giftwrap was built by Craig Tracey and John Dewey to build packages for openstack projects.<br>
-					* I helped add support for building docker images as well as system packages.<br>
-					* Really easy to tie into CI to build packages based on forks or patched repos.<br>
-					* Most people I know running OS are forked/patched and not OS packages.<br>
-					* simply .yml file to describe which openstack projects to build and where to clone them from.<br>
-					* I wrote giftwrap-wrapper, a docker factory for building packages, very fast, equiv of cross compiling.<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Openstack on Docker</h2>
-				<h3>how do I even config?</h3>
-				<ul>
-				  <li>preconfigured during build
-				  <li>bind mount /etc/nova to docker:/etc/nova
-				  <li>template using env vars at runtime
-				</ul>
-					<aside class="notes">
-					* if infra doesn't change much, bake your configs into your images and never change them.<br>
-					* if you already have chef or something writing configs, you can bind mount them into container at runtime.<br>
-					* can template configs and use a tool like confd or even inline sed to write configs at runtime.<br>
-					* talk about confd shortly.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li>Docker on Openstack
-				  <li>Openstack on Docker
-				  <li><b>Inside a Docker</b>
-				  <li>Outside a Docker
-				  <li>Recommendations
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Break the rules</h3>
-				<img src="images/5rules.jpg">
-					<aside class="notes">
-					* Docker community will loudly tell you about a bunch of golden rules<br>
-					* break them,  they're not rules, they're opinions being forced on you by people who don't know your use case<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Unicorn App</h3>
-				<ul>
-					<li>compiled language (golang)
-					<li>12 factor
-					<li>container &lt; 10mb
-				</ul>
-					<aside class="notes">
-					* docker community would tell you this is how to properly build docker images<br>
-					* great when greenfielding both app dev and infra, but impractical for the rest of us.<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>The rest of us</h3>
-				<ul>
-					<li>interpreted language (python)
-					<li>system deps, config files, log files
-					<li>multiple processes
-					<li>container &gt; 500mb
-				</ul>
-					<aside class="notes">
-					* this is more representitive of an app that you might want to dockerize<br>
-					* written in an interpreted language like python or php<br>
-					* lots of system requirements and language libraries,  maybe even nginx or apache<br>
-					* we may end up with several processes we need to run<br>
-					* containers up 500mb++.  see plenty of 1gb containers.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				  <h3>Example Dockerfile</h3>
-					<pre><code data-trim>
-FROM myorg/base
-
-RUN \
-  DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y wget && \
-  wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add - && \
-  echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list && \
-  apt-get update && apt-get install -yq \
-  hhvm-fastcgi nginx runit mysql-client
-
-RUN \
-  curl -sSL -o /usr/local/bin/etcdctl http://files/etcdctl-v0.4.6 \
-  && chmod +x /usr/local/bin/etcdctl \
-  && curl -sSL -o /usr/local/bin/confd http://files/confd-0.7.1-linux-amd64 \
-  && chmod +x /usr/local/bin/confd
-
-CMD ["/app/bin/boot"]
-
-ADD . /app
+# Autorun chrome
+ENTRYPOINT [ "/usr/bin/google-chrome-stable" ]
+CMD [ "--user-data-dir=/data", "--no-sandbox", "file:///slides/index.html" ]
 					</code></pre>
           <aside class="notes">
-          * here's an example dockerfile of a non-unicorn app<br>
-          * hhvm, nginx, runit<br>
-          * etcdctl, confd<br>
-          * boot script - default env, call confd, start apps.<br>
+          * This is a dockerfile.<br>
+          * instructions on how to create an docker image<br>
+          * FROM, RUN, COPY, CMD
           </aside>
 				</section>
 
-				<section data-background="images/slide_bg.png">
-				  <h2>Using Docker Compose</h2>
+				<section>
+				  <h2>Docker Compose</h2>
 					<pre class="stretch"><code data-trim>
 nginx:
   build: .
@@ -530,7 +382,8 @@ mysql:
   ports: [ 3306:3306 ]
 					</code></pre>
           <aside class="notes">
-          * removed env settings to fit on screen<br>
+          * takes yml file and builds containers as described<br>
+          * volume mount CWD into container<br>
           * just a few seconds to get app running assuming prebuilt.<br>
           * if I run boot without argument it runs both nginx and hhvm<br>
           * as you can see am using community image for mysql... aok.
@@ -559,407 +412,319 @@ mysql:
 				</section>
 
 				<section data-background="images/slide_bg.png">
-					<h3>Multiple processes</h3>
-					<img src="images/php_hammer.jpg" height="33%" width="33%">
-					<aside class="notes">
-					* multiple procesess in a container is fine.  for some stuff like php its mandatory.<br>
-					* plus a init tool can help run apps like apache or haproxy which don't nec. run well in a container<br>
-					* my preferences for init in container is runit or supervisord.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h3>Logging</h3>
-					  <ul>
-					    <li>try to avoid logging to files in a container
-					    <li>log to stdout/stderr
-					<aside class="notes">
-					* key is to never write logs to a file in the container<br>
-					* Otherwise have to do log management in the container.<br>
-					* anything writing to stdout in the container gets consumed by the docker log subsystem<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h3>Logging</h3>
-					<pre><code data-trim>
-# /etc/nginx/nginx.conf
-
-error_log /dev/stderr;
-access_log /dev/stdout;
-daemon off;
-user app app;
-...
-...
-					</code></pre>
-					<aside class="notes">
-					* most app configs allow setting logfile location.  used /dev/stdout|stderr<br>
-					* example nginx config logs set to /dev/stdout<br>
-					* also note daemon set to off - foreground.<br>
-					* set to run as user 'app', try to avoid running as root inside containers<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h2>Configs in Containers</h2>
-					<h3><a href="https://github.com/kelseyhightower/confd">confd</a></h3>
+					<h3>Openstack Images for Docker</h3>
 					<ul>
-					<li>templating engine written in GO.
-					<li>key/value pairs from a number of supported storage engines.
-					<li>Environment Variables, ETCD, Consul, etc.
+					  <li><b>Ubuntu Trusty</b> / Fedora
+					  <li><b>CoreOS</b> / RancherOS
+					  <li>Atomic / Snappy
 					</ul>
 					<aside class="notes">
-          * we're using confd, is a templating engine written in GO<br>
-          * it is designed with SD in mind ( etcd,consul,etc) but also supports ENV<br>
-          * go templates are fairly feature rich.<br>
-          * there's no better way to handle writing config files in containers.
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-					<h2>Configs in Containers</h2>
-					<pre><code data-trim>
-# conf.d/app_Config_database.php.toml
-
-[template]
-src   = "app_Config_database.php"
-dest  = "/app/Config/database.php"
-owner = "app"
-group = "app"
-mode  = "0750"
-keys = [
-  "/db"
-]
-check_cmd = "apachectl configtest"
-reload_cmd = "apachectl restart"
-
-					</code></pre>
+					<h3>How to Docker with Openstack ?</h3>
+						<ul>
+						 <li>Just plain old Docker.
+						 <li>Docker Machine
+						 <li>Deis
+						 <li>CoreOS + Fleet
+						 <li>Kubernetes
+						 <li>Rancher Labs
+						 <li>Stack Engine
 					<aside class="notes">
-					* confd metadata<br>
-					* src, dest, owner, group, mode<br>
-					* set what keys/env vars to poll<br>
-					* check_cmd - run a script for syntax checking apachectl configtest<br>
-					* reload command - on template change, run a command.  apachectl restart<br>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h2>Configs in Containers</h2>
-					<pre><code data-trim>
-# templates/app_Config_database.php
-
-class DATABASE_CONFIG {
-  public $default = array(
-    'datasource' => 'Database/Mysql',
-    'persistent' => false,
-    'host' => '{{ getv "db/host" }}',
-    'login' => '{{ getv "db/user" }}',
-    'password' => '{{ getv "db/pass" }}',
-    'database' => '{{ getv "db/name" }}',
-    'prefix' => 'scout_',
-    'encoding' => 'utf8',
-  );
-}
-					</code></pre>
-					<aside class="notes">
-					* only template config options that change from env to env<br>
-					* otherwise can grow to be a large mess of values that need to be configured.<br>
-					* can do loops and all sorts of crazy stuff.
+					* Going to talk through a bunch of ways to docker on openstack<br>
+					* Don't really need a slide for plain old docker...  just ssh into instance and start using<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-					<h2>Configs in Containers</h2>
-					<pre><code data-trim>
-#!/bin/bash
-# bin/boot
-
-export DB_HOST=${DB_HOST:-"mysql"}
-export DB_PORT=${DB_PORT:-"3306"}
-export DB_USER=${DB_USER:-"bacon"}
-export DB_PASS=${DB_PASS:-"bacon"}
-export DB_DATA=${DB_NAME:-"bacon"}
-
-confd -onetime -config-file /docker/confd_env.toml
-exec nginx
-wait
-					</code></pre>
+					<h3>Docker Machine</h3>
+					<p><a href="https://github.com/docker/machine/releases">https://github.com/docker/machine/releases</a></p>
 					<aside class="notes">
-          * bash script set to CMD of container<br>
-          * load in env variables, set to defaults if empty<br>
-          * call confd in single shot mode to write templates<br>
-          * if using service discovery omit -onetime flag<br>
-          * finally run nginx ( set to non-daemon and logs to stdout )<br>
-          * wait helps prevent zombie processes.
+					* you could just spin up an instance and ssh in and use docker, or just expose the docker port<br>
+					* but Docker machine makes that a little easier and more secure.<br>
+					* docker machine will spin up a new server, install docker, and set up a client/server key/pair.<br>
+					* it reads your openrc style environment variables, but still requires a bunch of settings<br>
+					* hide them behind an alias or a script or something.<br>
 					</aside>
 				</section>
 
-				<section data-background="images/slide_bg.png">
-					<h2>Configs in Containers</h2>
-					<pre><code data-trim>
-$ docker run -d \
-  -e DB_HOST=10.0.0.1 \
-  -e DB_USER=bacon \
-  -e DB_PASS=dadfkgfdsgdg \
-  -e DB_NAME=bacon \
-  --name bacon_web \
-  -p 8080:8080 \
-  bacon/web bin/boot
-					</code></pre>
-					<aside class="notes">
-					* regular docker run command<br>
-					* env vars here are translated into config files via confd<br>
-					</aside>
-				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Agenda</h2>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li>Docker on Openstack
-				  <li>Openstack on Docker
-				  <li>Inside a Docker
-				  <li><b>Outside a Docker</b>
-				  <li>Recommendations
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Outside a Docker</h2>
-				<ul>
-					<li>Things are different in docker land
-					<li>Here's some tips to help transistion
-					<li>Config Management, Logging, Monitoring, etc.
-				</ul>
-					<aside class="notes">
-					* Everything in docker land is a little bit differnt to what you're used to<br>
-					* but there is tooling to help smooth out the differences<br>
-					* stuff like CM ( not templating configs ), logging, monitoring, etc.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Config Management</h3>
-				<ul>
-					<li>Chef Provisioning / Chef Docker cookbook
-					<li>Ansible Docker module
-					<li>Puppetforge Docker module
-				</ul>
-					<aside class="notes">
-					* This is a great way to bridge traditional / docker<br>
-					* Use CM to install Docker on OS<br>
-					* Use CM to perform build/pull/run operations<br>
-					* Treat docker as a packaging format
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>ctop</h3>
-				 <img src="images/ctop.png">
-				  <small>https://github.com/yadutaf/ctop</small>
-					<aside class="notes">
-					  * ctop gives you a top like view of containers and the processes running in them.<br>
-					  * should work fine for lxc containers as well.
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h2>Monitoring</h2>
-					<br><br>
-					<ul>
-					  <li>Docker uses libcontainer for cgroups/namespaces.
-					  <li>metrics exposed in weird places in /proc
-					  <li>Example - /sys/fs/cgroup/memory/lxc/[longid]/
-					  <li>Hard to track where all of these metrics live.
-					<p>
-          <aside class="notes">
-          * docker used to use lxc, now accesses cgroups/namespaces via libcontainer<br>
-          * container metrics do get exposed by OS, but are hard to find.<br>
-          * Can use collectd or sensu or similar to collect these metrics<br>
-          * Docker 1.5 comes with some basic metrics in docker API<br>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Monitoring - Cadvisor</h3>
-				<img src="images/cadvisor.png">
-					<aside class="notes">
-          * Cadvisor was written at google for kubernetes, but runs well for any dockered system<br>
-          * Has a Web UI to look at local metrics to the machine<br>
-          * Has a rest API that you can interrogate for metrics<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Monitoring - Cadvisor</h3>
-				<img src="images/grafana.png">
-					<aside class="notes">
-          * supports sending data to InfluxDB and Prometheus.<br>
-          * needs to add support for more metrics storage engines<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h3>Monitoring - Cadvisor</h3>
-				<pre><code data-trim>
-sudo docker run \
-  --volume=/:/rootfs:ro \
-  --volume=/var/run:/var/run:rw \
-  --volume=/sys:/sys:ro \
-  --volume=/var/lib/docker/:/var/lib/docker:ro \
-  --publish=8080:8080 \
-  --detach=true \
-  --name=cadvisor \
-  google/cadvisor:latest
+					<h3>Docker Machine</h3>
+<pre><code>
+$ docker-machine create -d openstack \
+  --openstack-image-id 1525c3f3-1224-4958-bd07-da9feaedf18b \
+  --openstack-flavor-id 2  --openstack-net-id ba0fdd03-72b5-41eb-bb67-fef437fd6cb4 \
+  --openstack-floatingip-pool external \
+  --openstack-ssh-user ubuntu --openstack-sec-groups docker \
+    testenv
+Creating machine...
+To see how to connect Docker to this machine, run: docker-machine env testenv
+$
 </code></pre>
 					<aside class="notes">
-          * pretty simple to run,  comes as a docker image ( can run from binary as well )<br>
-          * map in some volumes from host and publish the http port<br>
-          * run this on every server.<br>
-
+					* in this case the image is ubuntu trusty and I have both an internal network and a floating ip pool.<br>
+					* you can see I also need to specify the ssh user and a security group.<br>
+					* sec-group should allow ssh and the docker port, I also added the ephemeral docker port range.<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-					<h3>Logging - Logspout</h3>
-					<p>sends docker logs -> external syslog
-					<pre><code data-trim>
-docker_container 'gliderlabs/logspout' do
-  detach  true
-  volume '/var/run/docker.sock:/tmp/docker.sock:ro'
-  command syslog://logs.papertrailapp.com:55555
-  name 'logspout'
-end
-					</code></pre>
+					<h3>Docker Machine</h3>
+<pre><code>
+$ docker-machine env testenv
+export DOCKER_TLS_VERIFY="1"
+export DOCKER_HOST="tcp://x.x.x.x:2376"
+export DOCKER_CERT_PATH="/home/pczarkowski/.docker/machine/machines/testenv"
+export DOCKER_MACHINE_NAME="testenv"
+$ eval "$(docker-machine env testenv)"
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS
+</code></pre>
 					<aside class="notes">
-					* logspout by progium saves a ton of work.  as long as all apps log to stdout<br>
-					* watches the docker log stream via mapped socket<br>
-					* run on every server<br>
-					* forwards logs to one or more syslog servers defined at runtime<br>
-					* can be configured at runtime or via api<br>
-					* currently using free papertrail tier, but will switch to elk.<br>
-					* also logging all OS logs to papertrail via rsyslog.
+					*  after docker machine succesfully runs I can get the env vars to pass to docker like this<br>
+					* pass it through eval and you have everything you need to securely connect to your docker machine.<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h3>Logging - Logspout</h3>
-				<img src="images/elk.png">
+					<h3>Docker Machine</h3>
+<pre><code>
+$ docker run -p 80 --name nginx -d nginx
+$ docker inspect nginx| grep HostPort
+                    "HostPort": "32769"
+$ curl x.x.x.x:32769
+...
+...
+<title>Welcome to nginx!</title>
+
+</code></pre>
 					<aside class="notes">
-					I'm using the elk stack,  have logstash listening for syslog traffic.<br>
+					* now we can run any randome docker command<br>
+					* and it will be run in the docker-machine rather than locally<br>
+					* for example nginx,  hostport,  curl<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h3>Container Management</h3>
-				<img src="images/stackengine.png">
+					<h3>Docker Machine</h3>
+					<ul>
+					  <li>Supports Docker-Swarm
+					  <li>Support Docker-Compose
+					  <li>No host volumes
+					  <li>Good for test/staging/demo
+					  <li>Not great for dev
+					</ul>
 					<aside class="notes">
-					* with vms we have the problem of vm sprawl, we have same problem with containers.<br>
-					* a management tool like stack engine helps keep track of what is running and where.<br>
-					* simply run it on every host that runs containers.<br>
-					* they're in beta right now and looking for people to try their product<br>
+					* docker swarm for docker based orchestration (NEW)<br>
+					* docker compose can talk to docker machines<br>
+					* some features are not usable on some clouds,  volume mounts not on most<br>
+					* this means it can be good for test and demo, but not great for demo.<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h1>Agenda</h1>
-				<ul>
-				  <li>WTF is Docker ?
-				  <li>Docker on Openstack
-				  <li>Openstack on Docker
-				  <li>Inside a Docker
-				  <li>Outside a Docker
-				  <li><b>Recommendations</b>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-				<h2>Recommendations</h2>
-				<h3>Ask for help...</h3>
-					<img src="images/dangerous.png">
+					<h2>DEIS</h2>
+					<ul>
+					  <li>Most mature Opensource [docker] PAAS*
+					  <li>Heroku inspired workflow
+					  <li>distributed stateless applications
+					  <li>seperation of responsibilities
+					  <li>Solid docs for running on Openstack
+					</ul>
 					<aside class="notes">
-					* Concentrate your efforts on your core comp.  differentiators, what brings money in the door.<br>
-					* Get help with the rest.
+					*
+					* deisctl vs deis<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Recommendations</h2>
-				<ul>
-					<li>Don't change things that aren't causing pain.
-					<li>Don't chase your tail.
-					<li>Put a low fence around existing.
-					<li>Be open minded.
-					<li>think 1+ year ahead
-					<li>act now+3mo
-				</ul>
+					<h2>DEIS</h2>
+<pre><code>
+$ git clone https://github.com/deis/example-ruby-sinatra.git
+$ cd example-ruby-sinatra.git
+$ deis create && git push deis master
+Creating application... done, created nimbus-insignia
+Git remote deis added
+...
+-----> Launching...
+       done, nimbus-insignia:v2 deployed to Deis
+       http://nimbus-insignia.x.x.x.x.xip.io
+
+$ curl http://nimbus-insignia.x.x.x.x.xip.io
+Powered by Deis!
+Running on container ID 88384adc62d4
+
+</code></pre>
 					<aside class="notes">
-					* likely have a decade of legacy apps that nobody understands anymore<br>
-					* build a fence around it and don't try and solve it the same way as future<br>
-					* don't change things that aren't causing pain, if your CI tooling works great, don't try to dockerize it.<br>
-					* think about where you want to be in a couple of years time, look for low hanging fruit that you can execute on right away.
+					* <br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Recommendations</h2>
-				<ul>
-					<li>Openstack - Nova, Glance, Neutron, Cinder (swift, heat)
-					<li>Build up a good [devops] practice.
-					<li>Learn how to build resiliant data persistence services on IaaS.
-				</ul>
+					<h2>DEIS</h2>
+<pre><code>
+$ deis config:set POWERED_BY=openstack
+Creating config... done, v3
+
+=== nimbus-insignia
+DEIS_APP: nimbus-insignia
+POWERED_BY: openstack
+
+$ curl http://nimbus-insignia.x.x.x.x.xip.io
+Powered by openstack
+Running on container ID 6440f619dcfc
+</code></pre>
 					<aside class="notes">
-					* build out ( or get help ) openstack.  stick with the core services.<br>
-					* don't try and unify your legacy with this.  wasted time.<br>
-					* get comfortable with them and maybe add swift and heat.<br>
-					* build up a good internal devops practice, find those people in your org and nurture them.<br>
-					* ask for help ... don't buy devops,  get help to understand and build your own practice.<br>
-					* Start to build and run cloudy apps, figure out how to build and run resiliant mysql, postgres, elasticsearch, etc.
+					* <br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Recommendations</h2>
-				<ul>
-				  <li>DevOps DevOps DevOps
-					<li>You're probably already doing some CM
-					<li>You're still going to need CM going forward.
-					<li>CM + Docker is a small evolutionary step
-				</ul>
+					<h2>DEIS</h2>
+<pre><code>
+$ deis scale web=3
+Scaling processes... but first, coffee!
+...
+$ curl http://nimbus-insignia.173.247.105.17.xip.io
+Running on container ID 6440f619dcfc
+$ curl http://nimbus-insignia.173.247.105.17.xip.io
+Running on container ID cbcf905b8b34
+$ curl http://nimbus-insignia.173.247.105.17.xip.io
+Running on container ID 676cb76cb562
+</code></pre>
 					<aside class="notes">
-					* can't stress how important devops is, if you don't devop you shouldn't even be talking about cloud and/or docker.<br>
-					* hopefully some parts of your org are doing CM, CI/CD, etc.<br>
-					* You're still going to need config management for stateful services, so starting with CM + Docker is a natural
-					evolutionary step and a great way to bring benefits of docker to your org in a structured way.<br>
-					* avoid the docker vs config management argument, its a silly argument as to build successful platforms you need both.
+					* <br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Recommendations</h2>
-				<ul>
-				  <li>Solum / Novadocker
-					<li><b>DEIS</b>
-					<li>Cloud Foundry
-					<li>CoreOS + Fleet
-					<li>Kubernetes
-					<li>Mesos
-				</ul>
+					<h3>CoreOS + Fleet</h3>
+					<ul>
+					  <li>CoreOS - minimal OS for running Containers
+					  <li>etcd - distrubuted Key/Value store
+					  <li>flannel - network overlay
+					  <li>fleet - Container Orchestration
+					  <li>fleet takes systemd units with special section
+					  <li>We actually just saw it in action with DEIS
+					</ul>
 					<aside class="notes">
-					* finally....
-					* Pick a platform and start to play with it.<br>
-					* If I had to pick one to aim for it would be DEIS<br>
-					* Excellent UX for both ops and devs<br>
-					* good split of responsibilties, ops run DEIS, persist data, devs run apps.<br>
-					* your own private heroku!  sweeeet.<br>
+					* DEIS uses coreos with fleet to deploy and orchestrate itself.<br>
+					* fleet combines with etcd for container orchestration.<br>
+					* you pass it systemd units with an extra section for fleet metadata<br>
+					* schedules across a coreos cluster, one host dies, restarts on another<br>
+					* affinity, anti-affinity, counts, etc.<br>
+					* great for building a platform ( like deis ) on top of<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
-				<h2>Links</h2>
-				<ul>
-				  <li>http://blueboxcloud.com
-					<li>http://tech.paulcz.net
-					<li>http://www.docker.com
-					<li>http://github.com/factorish
-					<li>http://deis.io
-				</ul>
+					<h3>CoreOS + Fleet</h3>
+<pre><code>
+[Unit]
+Description=deis-router
+
+[Service]
+EnvironmentFile=/etc/environment
+ExecStartPre=/bin/sh -c "IMAGE=`/run/deis/bin/get_image /deis/router` && docker history $IMAGE >/dev/null 2>&1 || docker pull $IMAGE"
+ExecStartPre=/bin/sh -c "docker inspect deis-router >/dev/null 2>&1 && docker rm -f deis-router || true"
+ExecStart=/bin/sh -c "IMAGE=`/run/deis/bin/get_image /deis/router` && docker run --name deis-router --rm -p 80:80 -p 2222:2222 -p 443:443 -e EXTERNAL_PORT=80 -e HOST=$COREOS_PRIVATE_IPV4 $IMAGE"
+ExecStopPost=-/usr/bin/docker rm -f deis-router
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+Conflicts=deis-router@*.service
+</code></pre>
+					<aside class="notes">
+
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Kubernetes</h3>
+					<ul>
+					  <li>Came from Google...but is <i>not</i> Google.
+					  <li>IAAS but for containers.
+					  <li>You still need to tell it what to run and where.
+					  <li>Magnum!
+					</ul>
+					<aside class="notes">
+					* not a PAAS, but rather something you would build a platform on top of<br>
+					* Kubernetes is to containers what openstack is to VMs.<br>
+					* very opsy interface for deploying/running containers<br>
+					* is building a platform your core compentency?  If not wait until somebody does it for you<br>
+					* if K8s, then think about Magnum.  Requires Heat.
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Docker Registry</h3>
+					<ul>
+					  <li>buy private Repos from Docker ( $$$ )
+					  <li>run Docker Registry locally ( files or swift? )
+					  <li>run Docker Trusted Registry ( $$$ )
+					  <li>run CoreOS Enterprise Registry ( $$$ )
+					</ul>
+					<aside class="notes">
+					* If doing much with docker will probably need private registry.<br>
+					* can pay docker for private repos on SAAS registry.<br>
+					* run opensource docker registry locally ( deis runs one for you ), can be backed by swift?<br>
+					* if backing with swift/s3/etc can run on every machine, localhost, no security.<br>
+					* Run either DTR or CoreOS ER....  pay money ... get support ?<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Docker Workflow #1</h3>
+					<ul>
+					  <li>Development on laptop (docker-compose)
+					  <li>Testing/QA on "Cloud" ( docker-compose + docker-machine )
+					  <li>Jenkins to build docker image, store in registry.
+					  <li>Staging / Production on "Cloud" ( Ansible or Chef )
+					</ul>
+					<aside class="notes">
+					* Develop locally on your laptop, use docker-compose<br>
+					* Deploy Testing / QA envs to Openstack using machine  + compose<br>
+					* on commit to "deploy" branch kick of jenkins build of image, version, push to registry<br>
+					* Deploy to Stage/Production using existing CM tools with docker integration<br>
+					* this good, because probably already using CM to manage existing infra, stateful dbs, etc<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h3>Docker Workflow #2</h3>
+					<ul>
+					  <li>Development on laptop (docker-compose)
+					  <li>Create PR on github
+					  <li>Jenkins runs unit tests on PR ( in docker )
+					  <li>Jenkins deploys test app of PR ( in DEIS )
+					  <li>Jenkins/Human performs Integration tests against PR
+					  <li>Jenkins/Human merges PR to master
+					  <li>Jenkins deploys Staging App ( in DEIS )
+					  <li>Human approves and cuts release in Github
+					  <li>Jenkins deploys Prod App ( in DEIS )
+					</ul>
+					<aside class="notes">
+					* A more advanced workflow using DEIS.<br>
+					* All steps beyond creating the PR can be automated<br>
+					* Path to full CI/CD ( if that's your bag )<br>
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Just Enough Openstack for Docker</h2>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section data-background="images/slide_bg.png">
+					<h2>Just Enough Openstack for Docker</h2>
+					<aside class="notes">
+					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
