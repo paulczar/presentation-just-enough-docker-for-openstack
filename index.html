@@ -41,29 +41,30 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background="images/title_page.png">
-					<h2>Just Enough Openstack for Docker</h2>
+					<h2>Just Enough Openstack for <b>Docker</b></h2>
 					<aside class="notes">
+					* Rule one of getting a CFP accepted is to mention "docker"<br>
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
 					<p>OpenStack is a large collection of complicated projects that join together to form a hard to deploy and harder to run distributed system.  This talk will show you how you can harness the concepts of bimodal IT to increase agility in your IT organization by utilizing a minimal Openstack install and various Docker based tools to build a platform that will increase developer productivity.</p>
 					<aside class="notes">
-					the CFP for Seattle Openstack day came out shortly after the openstack summit in vancouver.  I guess I was still full of buzzwords and bullshit because I
-					wrote this...
+					Rule two is to write a excerpt that doesn't really say anything meaningful
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
 					<p>Openstack is a large collection of complicated projects that join together to form a <b>hard to deploy</b> and <b>harder to run</b> <b>distributed system</b>.  This talk will show you how you can harness the concepts of <b>bimodal IT</b> to <b>increase agility in your IT organization</b> by utilizing a <b>minimal Openstack install</b> and various <b>Docker based tools</b> to <i>build a platform</i> that will <b>increase developer productivity.</b></p>
 					<aside class="notes">
-					I was surprised and a little anxious when Sririum notified me that my CFP was expected and I'd have to actually produce something to cover this wall of buzzwords.
+					that is little more than a set of loosely coupled buzzwords.
 					</aside>
 				</section>
 
 				<section data-background="images/slide_bg.png">
 					<h4>Just Enough Openstack for Docker</h4>
 					<ul>
+					  <li>Docker Docker Docker
 					  <li>Hard to deploy
 					  <li>Harder to run
 					  <li>distributed system
@@ -75,7 +76,6 @@
 					  <li>increase developer productivity
 					</ul>
 					<aside class="notes">
-					Thankfully It was easily distilled into just the buzzwords.
 					</aside>
 				</section>
 
@@ -84,10 +84,12 @@
 					<ul>
 					  <li>Bimodal IT
 					  <li>Just Enough Openstack [for Docker]
-					  <li>Docker, Docker, Docker
+					  <li>Docker on Openstack
 					</ul>
 					<aside class="notes">
-					which boiled down to these three main talking points which are three things I can actually talk about with hopefully some level of coherence.
+					Once your CFP is accepted you can pretty much talk about anything you want.<br>
+					In this case is these three main talking points which are sort of mentioned in the CFP, but it doesn't matter because nobody is quite sure what you promised to talk about.<br>
+					Interestingly,  just about every concept I'm going to talk about has been mentioned at some point aready today.
 					</aside>
 				</section>
 
@@ -107,8 +109,7 @@
 					<h3>Let's get to know eachother</h3>
 					<img src="images/hello_audience.gif" width="65%" height="65%">
 					<aside class="notes">
-					* Now we're going to go around the room one by one and say a few words about yourselves.<br>
-					* j/k but that would certainly take the pressure off me trying to fill 40 mins of content here<br>
+					* clearly I can't ask each of you to introduce yourself,  but I can run some audience participation...<br>
 					* show of hands:  - work at enterprise - running openstack,  - running docker<br>
 					* take a look around the room ... these are the people you should network with today.
 					</aside>
@@ -134,7 +135,8 @@
 					* Waterfall, ITIL, Change Comittees, 12am maintenance windows.<br>
 					* Exchange, Physical, Windows 2003, RHEL + Satellite.<br>
 					* Ticket driven IT infrastructure.<br>
-					* Focus on improving reliability of existing services.  VMWare!
+					* Focus on improving reliability of existing services.  VMWare!<br>
+					* this is pets of the pets vs cattle analogy<br>
 					</aside>
 				</section>
 
@@ -145,11 +147,11 @@
 					<aside class="notes">
 					* mode 2 is your forward thinking IT business.<br>
 					* Completely different org to that of Mode 1<br>
-					* focus on reducing bottlenecks and delivering business value - Goal, Phoenix<br>
+					* focus on reducing bottlenecks and delivering business value<br>
 					* Scrum/Kanban, Devops, Infra as code, CI/CD, short feedback loops<br>
 					* Google Apps, Slack, Cloud ( AWS, Azure, Openstack ), Containers, *AAS<br>
-					* look at shadow it in your org, build systems that your ppl will go to first.<br>
 					* self service IT infrastructure<br>
+					* this is the cattle of the pets vs cattle<br>
 					</aside>
 				</section>
 
@@ -159,11 +161,11 @@
 					<h3>Cattle</h3>
 					<aside class="notes">
 					* without this second mode, your business will suffer greatly as your competitors go down this path<br>
-					* at prev org, we went through a 3 year "cloud" RFC/RFP process.<br>
-					* primary question was 'how can we do everything with X' which caused us to chase our tail rather than look forward<br>
-					* result was 'VMWare', 3 years later they have vmware which takes just as long to provision systems as physical.<br>
-					* meanwhile we had a golden metric of 'how many systems did you virtualize' - because that's the same as cloud right?<br>
-					* led to crazyness like P2V migrations, 1:1 virtualization, a DB and both its replicas on same Hypervisor, etc, etc<br>
+					* symptoms of not doing bimodal IT include a 3 year "cloud" RFC/RFP process that end in vmware/hyperv<br>
+					* if you do a RFP for cloud you've already failed.<br>
+					* asking 'how can we do everything with this' when evaluating tech<br>
+					* building a goal/metric of 'how many systems did you virtualize'<br>
+					* having discussions that include: like P2V migrations, 1:1 virtualization, etc<br>
 					</aside>
 				</section>
 
@@ -171,9 +173,8 @@
 					<img src="images/thegoal.jpg" width='200' height='300'><img src="images/phoenixproj.png">
 					<aside class="notes">
 					* not really increasing developer productivity,  we're reducing friction.<br>
-					* 2nd mode of IT should borrow heavily from Lean,  Toyota<br>
+					* 2nd mode of IT should borrow heavily from Lean practices,  Toyota Manufacturing, etc<br>
 					* TOC is /very/ important here, read PP and the goal<br>
-					* hands up if you have read either of these<br>
 					</aside>
 				</section>
 
@@ -194,7 +195,6 @@
 					* My summary here:  don't worry about legacy when you're making decisions for the future.<br>
 					* Build seperate team for build/develop.  disturbingly large no of ppl will be happy to stay in mode1<br>
 					* Our focus here at the openstack day should be on the 2nd mode of IT.<br>
-					* if you're here try to improve your legacy infrastructure ... well VMWorld is coming up on August 30
 					</aside>
 				</section>
 
@@ -233,6 +233,7 @@
 					  <li>Helion, Mirantis, ...
 					  <li><i>Roll your own packages</i>
 					</ul>
+					<p><small><a href="http://github.com/blueboxgroup/giftwrap">http://github.com/blueboxgroup/giftwrap</a></small>
 					<aside class="notes">
 					* You've chosen an OS ...  now choose an openstack "distro"<br>
 					* Really two choices here for somebody new to openstack.  <br>
@@ -294,6 +295,11 @@
 					  <li>~ 1200 ansible tasks to do a <i>simple</i> openstack install
 					</ul>
 					<aside class="notes">
+					* bluebox's tooling for deploying and managing openstack clouds is called Urusla<br>
+					* opensource and freely available on github.<br>
+					* very opinionated and curated to be able to run a large number of medium size clouds by small team.<br>
+					* We use a vagrant env for development, makes it easy to kick the tires.<br>
+					* JEOD env ... still has 1200 tasks to install openstack!!!<br>
 					</aside>
 				</section>
 
@@ -322,6 +328,7 @@
     Uses linux kernel tooling ( cgroups, namespaces, etc)<br>
     Shareable Immutable Artifacts - Images / Docker Hub<br>
     As much or as little of an OS in the image as you want.<br>
+						* &lt; 1 sec startup time, have seen &lt; 10mb to &gt; gigs<br>
 					</aside>
 				</section>
 
@@ -333,7 +340,6 @@
 						* security/isolation half way between chroot and VM<br>
 						* Any OS capable of running docker can run your dockerized app... rhel vs deb<br>
 						* layered filesystem means that containers can share common data.<br>
-						* &lt; 1 sec startup time, have seen &lt; 10mb to &gt; gigs<br>
 					</aside>
 				</section>
 
@@ -404,10 +410,8 @@ mysql:
 				</ul>
 					<aside class="notes">
           * Toolset I developed for making legacy style apps run in a docker container<br>
-          * basic premise, container becomes 'the app'.  container needs to be 12factor not app inside.<br>
           * ties together tooling to help with config templating, process management, service discovery and more<br>
           * examples from basic python app to full ELK stack with SD, auto-clustering mysql/galera.<br>
-          * will talk about some key concepts of factorish and how they apply to running apps in containers
 					</aside>
 				</section>
 
@@ -431,10 +435,8 @@ mysql:
 						 <li>CoreOS + Fleet
 						 <li>Kubernetes
 						 <li>Rancher Labs
-						 <li>Stack Engine
 					<aside class="notes">
 					* Going to talk through a bunch of ways to docker on openstack<br>
-					* Don't really need a slide for plain old docker...  just ssh into instance and start using<br>
 					</aside>
 				</section>
 
@@ -521,7 +523,7 @@ $ curl x.x.x.x:32769
 					* docker swarm for docker based orchestration (NEW)<br>
 					* docker compose can talk to docker machines<br>
 					* some features are not usable on some clouds,  volume mounts not on most<br>
-					* this means it can be good for test and demo, but not great for demo.<br>
+					* this means it can be good for test and demo, but not great for dev.<br>
 					</aside>
 				</section>
 
@@ -535,8 +537,12 @@ $ curl x.x.x.x:32769
 					  <li>Solid docs for running on Openstack
 					</ul>
 					<aside class="notes">
-					*
-					* deisctl vs deis<br>
+					* arguably deis is most mature and functional opensource docker based PAAS<br>
+					* has heroku style workflow ( and others ).  UX first,chef->docker<br>
+					* is a stateless distribute app itself<br>
+					* ops manage deis and underlying infra, devs/devops manage apps in deis.<br>
+					* ops/DBAs/etc manage databases and state external to DEIS
+					* docs for running on openstack are solid<br>
 					</aside>
 				</section>
 
@@ -544,7 +550,7 @@ $ curl x.x.x.x:32769
 					<h2>DEIS</h2>
 <pre><code>
 $ git clone https://github.com/deis/example-ruby-sinatra.git
-$ cd example-ruby-sinatra.git
+$ cd example-ruby-sinatra
 $ deis create && git push deis master
 Creating application... done, created nimbus-insignia
 Git remote deis added
@@ -559,7 +565,11 @@ Running on container ID 88384adc62d4
 
 </code></pre>
 					<aside class="notes">
-					* <br>
+					* example of running application in deis<br>
+					* was going to live demo, but we're doing this on shared laptop<br>
+					* deis create sees we're in a git repo and sets up a remote repo to deis git server<br>
+					* post-commit hooks builds and runs application<br>
+					* deis uses wildcard dns to route to applications.  xip is great for demo with this.<br>
 					</aside>
 				</section>
 
@@ -578,7 +588,13 @@ Powered by openstack
 Running on container ID 6440f619dcfc
 </code></pre>
 					<aside class="notes">
-					* <br>
+					* deis has a bunch of commands to deal with your running app<br>
+					* for example we can change a config setting for our app ( which is done via docker envs)<br>
+					* deis will rebuild the final layer of your app container which contains the config<br>
+					* it will then mark it as a versioned release and push to docker registry<br>
+					* a new contaner will then be spun up and added to LB, then old spun down<br>
+					* rollback to previous release is easy and quick<br>
+					* explain example<br>
 					</aside>
 				</section>
 
@@ -596,7 +612,10 @@ $ curl http://nimbus-insignia.173.247.105.17.xip.io
 Running on container ID 676cb76cb562
 </code></pre>
 					<aside class="notes">
-					* <br>
+					* adding more or less containers to your app is easy,  simply run deis scale<br>
+					* scales your number of containers to the number specified.<br>
+					* easy to tie this into a cron style job for seasonal traffic patterns, can tie to monitoring for auto-scale<br>
+					* can see here it scaled to three, and I can curl and get 3 different container IDs.
 					</aside>
 				</section>
 
@@ -640,7 +659,9 @@ WantedBy=multi-user.target
 Conflicts=deis-router@*.service
 </code></pre>
 					<aside class="notes">
-
+					* this is example of fleet unit, pretty easy to understand and parse<br>
+					* surprisingly easy to set up affinity and boot order roles<br>
+					* can use affinity and boot order to ensure a containers volume container starts before it for stateful apps.
 					</aside>
 				</section>
 
@@ -664,8 +685,8 @@ Conflicts=deis-router@*.service
 				<section data-background="images/slide_bg.png">
 					<h3>Docker Registry</h3>
 					<ul>
-					  <li>buy private Repos from Docker ( $$$ )
-					  <li>run Docker Registry locally ( files or swift? )
+					  <li>Use private repos on Docker Hub ( $$$ )
+					  <li>run Docker Registry locally ( OS )
 					  <li>run Docker Trusted Registry ( $$$ )
 					  <li>run CoreOS Enterprise Registry ( $$$ )
 					</ul>
@@ -712,18 +733,6 @@ Conflicts=deis-router@*.service
 					* A more advanced workflow using DEIS.<br>
 					* All steps beyond creating the PR can be automated<br>
 					* Path to full CI/CD ( if that's your bag )<br>
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h2>Just Enough Openstack for Docker</h2>
-					<aside class="notes">
-					</aside>
-				</section>
-
-				<section data-background="images/slide_bg.png">
-					<h2>Just Enough Openstack for Docker</h2>
-					<aside class="notes">
 					</aside>
 				</section>
 
